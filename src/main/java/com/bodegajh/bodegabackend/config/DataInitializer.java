@@ -13,10 +13,7 @@ public class DataInitializer {
 
     // --- ¡ESTA ES LA PIEZA QUE FALTABA! ---
     // Aquí le damos a Spring Boot la herramienta para encriptar
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
     // --------------------------------------
 
     @Bean
