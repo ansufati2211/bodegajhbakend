@@ -65,4 +65,29 @@ public class Venta {
 
     public LocalDateTime getFechaVenta() { return fechaVenta; }
     public void setFechaVenta(LocalDateTime fechaVenta) { this.fechaVenta = fechaVenta; }
+    @Column(name = "pago_efectivo")
+    private BigDecimal pagoEfectivo;
+
+    @Column(name = "pago_yape")
+    private BigDecimal pagoYape;
+
+    @Column(name = "pago_plin")
+    private BigDecimal pagoPlin;
+
+    @Column(name = "pago_tarjeta")
+    private BigDecimal pagoTarjeta;
+
+    // --- Agrega sus Getters y Setters abajo del todo ---
+    public BigDecimal getPagoEfectivo() { return pagoEfectivo; }
+    public void setPagoEfectivo(BigDecimal pagoEfectivo) { this.pagoEfectivo = pagoEfectivo; }
+
+    public BigDecimal getPagoYape() { return pagoYape; }
+    public void setPagoYape(BigDecimal pagoYape) { this.pagoYape = pagoYape; }
+
+    public BigDecimal getPagoPlin() { return pagoPlin; }
+    public void setPagoPlin(BigDecimal pagoPlin) { this.pagoPlin = pagoPlin; }
+
+    public BigDecimal getPagoTarjeta() { return pagoTarjeta; }
+    public void setPagoTarjeta(BigDecimal pagoTarjeta) { this.pagoTarjeta = pagoTarjeta; }
+
 }

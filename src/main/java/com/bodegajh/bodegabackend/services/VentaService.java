@@ -26,6 +26,11 @@ public class VentaService {
         nuevaVenta.setTotal(request.getTotal());
         nuevaVenta.setGananciaNeta(BigDecimal.ZERO);
         nuevaVenta.setEsCredito(false);
+        // Guardamos cómo nos pagó el cliente (Si viene vacío, le ponemos 0)
+        nuevaVenta.setPagoEfectivo(request.getPagoEfectivo() != null ? request.getPagoEfectivo() : BigDecimal.ZERO);
+        nuevaVenta.setPagoYape(request.getPagoYape() != null ? request.getPagoYape() : BigDecimal.ZERO);
+        nuevaVenta.setPagoPlin(request.getPagoPlin() != null ? request.getPagoPlin() : BigDecimal.ZERO);
+        nuevaVenta.setPagoTarjeta(request.getPagoTarjeta() != null ? request.getPagoTarjeta() : BigDecimal.ZERO);
         Venta ventaGuardada = ventaRepository.save(nuevaVenta);
 
         // 2. Guardar detalles (El Trigger de la BD se encargará del stock y las ganancias)

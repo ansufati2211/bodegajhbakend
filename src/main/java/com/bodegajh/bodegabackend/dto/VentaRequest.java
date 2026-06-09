@@ -10,6 +10,10 @@ public class VentaRequest {
     private BigDecimal total;
     private Boolean enviarSunat;
     private List<DetalleRequest> detalles;
+    private BigDecimal pagoEfectivo;
+    private BigDecimal pagoYape;
+    private BigDecimal pagoPlin;
+    private BigDecimal pagoTarjeta;
 
     // --- GETTERS Y SETTERS MANUALES PARA VentaRequest ---
 
@@ -27,7 +31,17 @@ public class VentaRequest {
 
     public List<DetalleRequest> getDetalles() { return detalles; }
     public void setDetalles(List<DetalleRequest> detalles) { this.detalles = detalles; }
+    public BigDecimal getPagoEfectivo() { return pagoEfectivo; }
+    public void setPagoEfectivo(BigDecimal pagoEfectivo) { this.pagoEfectivo = pagoEfectivo; }
 
+    public BigDecimal getPagoYape() { return pagoYape; }
+    public void setPagoYape(BigDecimal pagoYape) { this.pagoYape = pagoYape; }
+
+    public BigDecimal getPagoPlin() { return pagoPlin; }
+    public void setPagoPlin(BigDecimal pagoPlin) { this.pagoPlin = pagoPlin; }
+
+    public BigDecimal getPagoTarjeta() { return pagoTarjeta; }
+    public void setPagoTarjeta(BigDecimal pagoTarjeta) { this.pagoTarjeta = pagoTarjeta; }
     // --- SUB-CLASE DetalleRequest ---
     public static class DetalleRequest {
         private Integer idProducto;
@@ -45,4 +59,5 @@ public class VentaRequest {
         public BigDecimal getPrecioUnitario() { return precioUnitario; }
         public void setPrecioUnitario(BigDecimal precioUnitario) { this.precioUnitario = precioUnitario; }
     }
+
 }
