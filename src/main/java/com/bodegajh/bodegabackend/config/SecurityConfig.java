@@ -32,6 +32,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("/error").permitAll() // <--- ¡AGREGA ESTA LÍNEA!
                         .anyRequest().authenticated()
                 )
                 // 3. Conectamos el proveedor que busca en tu Base de Datos

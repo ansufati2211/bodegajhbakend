@@ -1,10 +1,8 @@
 package com.bodegajh.bodegabackend.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import java.math.BigDecimal;
 
-@Data
 @Entity
 @Table(name = "detalle_ventas")
 public class DetalleVenta {
@@ -32,4 +30,27 @@ public class DetalleVenta {
 
     @Column(insertable = false, updatable = false)
     private BigDecimal subtotal;
+
+    // --- GETTERS Y SETTERS MANUALES PARA EVITAR ERRORES DEL EDITOR ---
+
+    public Integer getIdDetalle() { return idDetalle; }
+    public void setIdDetalle(Integer idDetalle) { this.idDetalle = idDetalle; }
+
+    public Integer getIdVenta() { return idVenta; }
+    public void setIdVenta(Integer idVenta) { this.idVenta = idVenta; }
+
+    public Integer getIdProducto() { return idProducto; }
+    public void setIdProducto(Integer idProducto) { this.idProducto = idProducto; }
+
+    public Integer getCantidad() { return cantidad; }
+    public void setCantidad(Integer cantidad) { this.cantidad = cantidad; }
+
+    public BigDecimal getPrecioUnitario() { return precioUnitario; }
+    public void setPrecioUnitario(BigDecimal precioUnitario) { this.precioUnitario = precioUnitario; }
+
+    public BigDecimal getGananciaUnitaria() { return gananciaUnitaria; }
+    public void setGananciaUnitaria(BigDecimal gananciaUnitaria) { this.gananciaUnitaria = gananciaUnitaria; }
+
+    public BigDecimal getSubtotal() { return subtotal; }
+    public void setSubtotal(BigDecimal subtotal) { this.subtotal = subtotal; }
 }
