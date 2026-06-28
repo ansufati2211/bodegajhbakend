@@ -23,7 +23,7 @@ public class VentaService {
         Venta nuevaVenta = new Venta();
         nuevaVenta.setIdUsuario(1);
         nuevaVenta.setTipoComprobante(request.getTipoComprobante());
-        nuevaVenta.setTotal(request.getTotal());
+        nuevaVenta.setTotal(BigDecimal.ZERO);
         nuevaVenta.setGananciaNeta(BigDecimal.ZERO);
         nuevaVenta.setEsCredito(false);
         // Guardamos cómo nos pagó el cliente (Si viene vacío, le ponemos 0)
