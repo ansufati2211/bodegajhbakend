@@ -24,4 +24,6 @@ public class Proveedor {
 
     @Column(name = "dias_visita", length = 100)
     private String diasVisita;
+
+    private Boolean estado = true;
 }

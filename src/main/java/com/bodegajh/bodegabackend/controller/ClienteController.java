@@ -22,6 +22,12 @@ public class ClienteController {
 
     @PostMapping
     public Cliente guardarCliente(@RequestBody Cliente cliente) {
+        // Unimos los datos del frontend para cumplir con la Base de Datos
+        if (cliente.getNombres() != null && cliente.getApellidos() != null) {
+            cliente.setNombreCompleto(cliente.getNombres() + " " + cliente.getApellidos());
+        } else {
+            cliente.setNombreCompleto("Cliente General");
+        }
         return clienteRepository.save(cliente);
     }
 }
