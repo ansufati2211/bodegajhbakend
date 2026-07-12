@@ -25,26 +25,26 @@ public class UsuarioController {
     @PostMapping
     public Usuario crearUsuario(@RequestBody Usuario usuario) {
         usuario.setEstado(true);
-        
+
         // Encriptar la contraseña para que el Login (Auth) funcione
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         usuario.setContrasena(encoder.encode(usuario.getContrasena()));
-        
+
         return usuarioRepository.save(usuario);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Integer id, @RequestBody Usuario detalles) {
         Usuario u = usuarioRepository.findById(id).orElseThrow();
-        
+
         // Solo actualizamos Nombre y Rol (las contraseñas no se editan desde aquí por ahora)
         u.setNombreCompleto(detalles.getNombreCompleto());
         u.setIdRol(detalles.getIdRol());
-        
+
         if(detalles.getUsername() != null) {
             u.setUsername(detalles.getUsername());
         }
-        
+
         return ResponseEntity.ok(usuarioRepository.save(u));
     }
 

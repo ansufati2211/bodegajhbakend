@@ -19,6 +19,11 @@ public class Venta {
     @Column(name = "id_cliente")
     private Integer idCliente;
 
+    // 👇 AQUÍ AGREGAMOS LA RELACIÓN CON EL TURNO 👇
+    @ManyToOne
+    @JoinColumn(name = "id_turno")
+    private TurnoCaja turnoCaja;
+
     @Column(name = "tipo_comprobante", length = 20)
     private String tipoComprobante;
 
@@ -37,6 +42,18 @@ public class Venta {
     @Column(name = "fecha_venta", insertable = false, updatable = false)
     private LocalDateTime fechaVenta;
 
+    @Column(name = "pago_efectivo")
+    private BigDecimal pagoEfectivo;
+
+    @Column(name = "pago_yape")
+    private BigDecimal pagoYape;
+
+    @Column(name = "pago_plin")
+    private BigDecimal pagoPlin;
+
+    @Column(name = "pago_tarjeta")
+    private BigDecimal pagoTarjeta;
+
     // --- GETTERS Y SETTERS MANUALES PARA EVITAR ERRORES DEL EDITOR ---
 
     public Integer getIdVenta() { return idVenta; }
@@ -47,6 +64,10 @@ public class Venta {
 
     public Integer getIdCliente() { return idCliente; }
     public void setIdCliente(Integer idCliente) { this.idCliente = idCliente; }
+
+    // 👇 Getter y Setter del Turno 👇
+    public TurnoCaja getTurnoCaja() { return turnoCaja; }
+    public void setTurnoCaja(TurnoCaja turnoCaja) { this.turnoCaja = turnoCaja; }
 
     public String getTipoComprobante() { return tipoComprobante; }
     public void setTipoComprobante(String tipoComprobante) { this.tipoComprobante = tipoComprobante; }
@@ -65,19 +86,7 @@ public class Venta {
 
     public LocalDateTime getFechaVenta() { return fechaVenta; }
     public void setFechaVenta(LocalDateTime fechaVenta) { this.fechaVenta = fechaVenta; }
-    @Column(name = "pago_efectivo")
-    private BigDecimal pagoEfectivo;
 
-    @Column(name = "pago_yape")
-    private BigDecimal pagoYape;
-
-    @Column(name = "pago_plin")
-    private BigDecimal pagoPlin;
-
-    @Column(name = "pago_tarjeta")
-    private BigDecimal pagoTarjeta;
-
-    // --- Agrega sus Getters y Setters abajo del todo ---
     public BigDecimal getPagoEfectivo() { return pagoEfectivo; }
     public void setPagoEfectivo(BigDecimal pagoEfectivo) { this.pagoEfectivo = pagoEfectivo; }
 
