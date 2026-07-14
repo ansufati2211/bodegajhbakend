@@ -7,9 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/productos")
 public class ProductoController {
@@ -25,33 +25,36 @@ public class ProductoController {
                 .collect(Collectors.toList());
     }
 
-    // 2. Guardar un nuevo producto
+// 2. Guardar un nuevo producto
     @PostMapping
-    public Producto guardarProducto(@RequestBody Producto producto) {
+    public ResponseEntity<?> guardarProducto(@RequestBody Producto producto) {
+        if (producto.getPrecioVenta() < producto.getPrecioCompra()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "El precio de venta no puede ser menor al precio de compra."));
+        }
         producto.setEstado(true);
-        return productoRepository.save(producto);
+        return ResponseEntity.ok(productoRepository.save(producto));
     }
 
     // 3. Actualizar un producto (Para tu botón del Lápiz)
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> actualizarProducto(@PathVariable Integer id, @RequestBody Producto detallesProducto) {
+    public ResponseEntity<?> actualizarProducto(@PathVariable Integer id, @RequestBody Producto detallesProducto) {
+        if (detallesProducto.getPrecioVenta() < detallesProducto.getPrecioCompra()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "El precio de venta no puede ser menor al precio de compra."));
+        }
+
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
         producto.setNombre(detallesProducto.getNombre());
         producto.setStock(detallesProducto.getStock());
-
-        // CORREGIDO: Usando CamelCase
         producto.setCodigoBarras(detallesProducto.getCodigoBarras());
         producto.setPrecioCompra(detallesProducto.getPrecioCompra());
         producto.setPrecioVenta(detallesProducto.getPrecioVenta());
         producto.setIdCategoria(detallesProducto.getIdCategoria());
         producto.setIdProveedor(detallesProducto.getIdProveedor());
 
-        Producto productoActualizado = productoRepository.save(producto);
-        return ResponseEntity.ok(productoActualizado);
+        return ResponseEntity.ok(productoRepository.save(producto));
     }
-
     // 4. Borrado Lógico (Para tu botón de la Papelera)
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarProducto(@PathVariable Integer id) {

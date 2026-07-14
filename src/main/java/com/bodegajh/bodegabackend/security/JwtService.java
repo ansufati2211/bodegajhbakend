@@ -33,11 +33,21 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+        try {
+            return extractClaim(token, Claims::getSubject);
+        } catch (io.jsonwebtoken.JwtException | IllegalArgumentException e) {
+            // Token vencido, mal formado o con firma inválida.
+            // Devolvemos null para que el filtro trate la petición como no autenticada (401),
+            // en vez de dejar que la excepción reviente el filtro y devuelva un 500 crudo.
+            return null;
+        }
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
+        if (username == null) {
+            return false;
+        }
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 

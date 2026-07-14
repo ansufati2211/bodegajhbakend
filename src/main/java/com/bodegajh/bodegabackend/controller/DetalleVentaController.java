@@ -9,7 +9,6 @@ import java.util.List; // Ahora sí se usa
 
 @RestController
 @RequestMapping("/api/detalle-ventas")
-@CrossOrigin(origins = "*")
 public class DetalleVentaController {
 
     @Autowired

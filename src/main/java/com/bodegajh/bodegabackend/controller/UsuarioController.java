@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/usuarios")
-@CrossOrigin(origins = "*")
 public class UsuarioController {
 
     @Autowired
@@ -25,26 +24,19 @@ public class UsuarioController {
     @PostMapping
     public Usuario crearUsuario(@RequestBody Usuario usuario) {
         usuario.setEstado(true);
-
-        // Encriptar la contraseña para que el Login (Auth) funcione
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         usuario.setContrasena(encoder.encode(usuario.getContrasena()));
-
         return usuarioRepository.save(usuario);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Integer id, @RequestBody Usuario detalles) {
         Usuario u = usuarioRepository.findById(id).orElseThrow();
-
-        // Solo actualizamos Nombre y Rol (las contraseñas no se editan desde aquí por ahora)
         u.setNombreCompleto(detalles.getNombreCompleto());
         u.setIdRol(detalles.getIdRol());
-
         if(detalles.getUsername() != null) {
             u.setUsername(detalles.getUsername());
         }
-
         return ResponseEntity.ok(usuarioRepository.save(u));
     }
 
@@ -52,6 +44,15 @@ public class UsuarioController {
     public ResponseEntity<?> eliminarUsuario(@PathVariable Integer id) {
         Usuario u = usuarioRepository.findById(id).orElseThrow();
         u.setEstado(false); // Borrado lógico
+        usuarioRepository.save(u);
+        return ResponseEntity.ok().build();
+    }
+
+    // NUEVO: Endpoint para alternar estado (Reactivar/Desactivar)
+    @PutMapping("/{id}/toggle-estado")
+    public ResponseEntity<?> toggleEstadoUsuario(@PathVariable Integer id) {
+        Usuario u = usuarioRepository.findById(id).orElseThrow();
+        u.setEstado(!u.getEstado());
         usuarioRepository.save(u);
         return ResponseEntity.ok().build();
     }

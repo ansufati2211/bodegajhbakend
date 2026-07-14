@@ -15,6 +15,11 @@ public class VentaRequest {
     private BigDecimal pagoPlin;
     private BigDecimal pagoTarjeta;
 
+    // 👇 NUEVO: necesarios para conectar la venta con el flujo de fiados
+    private Integer idCliente;
+    private Boolean esCredito;
+    private Integer diasPlazo; // solo se usa si esCredito = true
+
     // --- GETTERS Y SETTERS MANUALES PARA VentaRequest ---
 
     public String getDocumentoCliente() { return documentoCliente; }
@@ -42,13 +47,21 @@ public class VentaRequest {
 
     public BigDecimal getPagoTarjeta() { return pagoTarjeta; }
     public void setPagoTarjeta(BigDecimal pagoTarjeta) { this.pagoTarjeta = pagoTarjeta; }
+
+    public Integer getIdCliente() { return idCliente; }
+    public void setIdCliente(Integer idCliente) { this.idCliente = idCliente; }
+
+    public Boolean getEsCredito() { return esCredito; }
+    public void setEsCredito(Boolean esCredito) { this.esCredito = esCredito; }
+
+    public Integer getDiasPlazo() { return diasPlazo; }
+    public void setDiasPlazo(Integer diasPlazo) { this.diasPlazo = diasPlazo; }
+
     // --- SUB-CLASE DetalleRequest ---
     public static class DetalleRequest {
         private Integer idProducto;
         private Integer cantidad;
         private BigDecimal precioUnitario;
-
-        // --- GETTERS Y SETTERS MANUALES PARA DetalleRequest ---
 
         public Integer getIdProducto() { return idProducto; }
         public void setIdProducto(Integer idProducto) { this.idProducto = idProducto; }
@@ -59,5 +72,4 @@ public class VentaRequest {
         public BigDecimal getPrecioUnitario() { return precioUnitario; }
         public void setPrecioUnitario(BigDecimal precioUnitario) { this.precioUnitario = precioUnitario; }
     }
-
 }

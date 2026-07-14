@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/turnos")
-@CrossOrigin(origins = "*")
 public class TurnoController {
 
     @Autowired
@@ -30,16 +29,22 @@ public class TurnoController {
             return ResponseEntity.ok().body(Map.of("mensaje", "CAJA_CERRADA"));
         }
     }
-
-    // 2. ABRIR EL TURNO DE CAJA (Registra con cuánto efectivo inicia)
+// 2. ABRIR EL TURNO DE CAJA (Registra con cuánto efectivo inicia)
     @PostMapping("/abrir")
-    public ResponseEntity<TurnoCaja> abrirCaja(@RequestBody TurnoCaja nuevoTurno) {
+    public ResponseEntity<?> abrirCaja(@RequestBody TurnoCaja nuevoTurno) {
+        // NUEVO CANDADO: Verificar si ya existe una caja abierta para este usuario
+        Optional<TurnoCaja> turnoAbierto = turnoCajaRepository.findByIdUsuarioAndEstado(nuevoTurno.getIdUsuario(), "ABIERTA");
+        
+        if (turnoAbierto.isPresent()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "El usuario ya tiene un turno de caja abierto. Ciérralo antes de abrir uno nuevo."));
+        }
+
         // Inicializamos los valores obligatorios de auditoría antes de persistir
         nuevoTurno.setFechaApertura(LocalDateTime.now());
         nuevoTurno.setEstado("ABIERTA");
         nuevoTurno.setTotalVentas(0.0);
         nuevoTurno.setMontoFinal(0.0);
-
+        
         TurnoCaja turnoGuardado = turnoCajaRepository.save(nuevoTurno);
         return ResponseEntity.ok(turnoGuardado);
     }

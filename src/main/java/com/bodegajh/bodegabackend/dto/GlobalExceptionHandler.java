@@ -30,14 +30,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
-    // 3. El "Cajón de sastre" (Para cualquier error inesperado del servidor)
+  // 3. El "Cajón de sastre" mejorado
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception ex) {
         ErrorResponse error = new ErrorResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(), // Devuelve un 500
-                "Ocurrió un error inesperado en el servidor. Contacte al administrador."
+                HttpStatus.INTERNAL_SERVER_ERROR.value(), 
+                "Error en el servidor: " + ex.getMessage() // Ahora mostrará el error SQL real
         );
-        // Opcional: Puedes hacer un ex.printStackTrace() aquí para verlo en tu consola
+        ex.printStackTrace(); // Esto te lo imprimirá en la consola de Java para que lo leas fácilmente
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

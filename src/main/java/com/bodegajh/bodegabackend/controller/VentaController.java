@@ -13,7 +13,6 @@ import com.bodegajh.bodegabackend.services.VentaService;
 
 @RestController
 @RequestMapping("/api/ventas")
-@CrossOrigin(origins = "*")
 public class VentaController {
 
     @Autowired

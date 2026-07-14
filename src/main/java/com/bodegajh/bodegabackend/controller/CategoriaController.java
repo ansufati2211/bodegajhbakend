@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/categorias")
-@CrossOrigin(origins = "*") // ¡Crucial! Permite que React (que correrá en otro puerto) pueda consumir esta API sin bloqueos de seguridad.
 public class CategoriaController {
 
     @Autowired
