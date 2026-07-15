@@ -14,22 +14,22 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 
-        // Permitir credenciales (vital para que pasen los tokens JWT)
+        // Permitir credenciales (vital para que pasen los tokens JWT)[cite: 3]
         config.setAllowCredentials(true);
 
-        // Habilitar ambos puertos de Vite
-        config.addAllowedOrigin("http://localhost:5173"); 
+        // 1. Entorno de Desarrollo Local
+        config.addAllowedOrigin("http://localhost:5173");
         config.addAllowedOrigin("http://localhost:5174");
 
-        // Permitir todas las cabeceras (headers)
-        config.addAllowedHeader("*");
+        // 2. NUEVO: Entorno de Producción (Reemplaza con tu URL real sin el '/' al final)
+        config.addAllowedOrigin("https://TU-DOMINIO-FRONTEND-EN-LA-WEB.com");
 
-        // Permitir todos los métodos (GET, POST, PUT, DELETE, OPTIONS)
+        // Permitir todas las cabeceras y métodos[cite: 3]
+        config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
-        // Aplicar esta regla a TODAS las rutas de la API
+        // Aplicar esta regla a TODAS las rutas de la API[cite: 3]
         source.registerCorsConfiguration("/**", config);
-
         return source;
     }
 }
