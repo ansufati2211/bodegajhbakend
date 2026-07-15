@@ -22,7 +22,7 @@ public class CorsConfig {
         config.addAllowedOrigin("http://localhost:5174");
 
         // 2. NUEVO: Entorno de Producción (Reemplaza con tu URL real sin el '/' al final)
-        config.addAllowedOrigin("https://TU-DOMINIO-FRONTEND-EN-LA-WEB.com");
+        config.addAllowedOrigin("https://ansufati2211.github.io");
 
         // Permitir todas las cabeceras y métodos[cite: 3]
         config.addAllowedHeader("*");
